@@ -1,0 +1,154 @@
+/* Typography */
+
+:root {
+   /* // Header sizing
+   // https://utopia.fyi/type/calculator/ */
+
+   /* // Peta */
+   --font-size-header-peta-desktop-w: 4.6875rem; /* 75.00px */
+   --font-size-header-peta-desktop-m: 4.2856rem; /* 68.57px */
+   --font-size-header-peta-desktop: 3.9175rem; /* 62.68px */
+   --font-size-header-peta-tablet-h: 3.5813rem; /* 57.30px */
+   --font-size-header-peta-tablet: 3.2731rem; /* 52.37px */
+   --font-size-header-peta-mobile-h: 2.9919rem; /* 47.87px */
+   --font-size-header-peta-mobile: 2.735rem; /* 43.76px */
+   --font-size-header-peta: 2.5rem; /* 40.00px */
+
+   /* // Tera, ratio 1.0667 */
+   --font-size-header-tera-desktop-w: 3.4375rem; /* 55.00px */
+   --font-size-header-tera-desktop-m: 3.2225rem; /* 51.56px */
+   --font-size-header-tera-desktop: 3.0213rem; /* 48.34px */
+   --font-size-header-tera-tablet-h: 2.8319rem; /* 45.31px */
+   --font-size-header-tera-tablet: 2.655rem; /* 42.48px */
+   --font-size-header-tera-mobile-h: 2.4888rem; /* 39.82px */
+   --font-size-header-tera-mobile: 2.3331rem; /* 37.33px */
+   --font-size-header-tera: 2.1875rem; /* 35.00px */
+
+   /* // Giga, ratio 1.0667 */
+   --font-size-header-giga-desktop-w: 2.8125rem; /* 45.00px */
+   --font-size-header-giga-desktop-m: 2.6356rem; /* 42.17px */
+   --font-size-header-giga-desktop: 2.4706rem; /* 39.53px */
+   --font-size-header-giga-tablet-h: 2.315rem; /* 37.04px */
+   --font-size-header-giga-tablet: 2.17rem; /* 34.72px */
+   --font-size-header-giga-mobile-h: 2.0338rem; /* 32.54px */
+   --font-size-header-giga-mobile: 1.9056rem; /* 30.49px */
+   --font-size-header-giga: 1.7863rem; /* 28.58px */
+
+   /* // Mega, ratio 1.0667 */
+   --font-size-header-mega-desktop-w: 2.1875rem; /* 35.00px */
+   --font-size-header-mega-desktop-m: 2.05rem;
+   --font-size-header-mega-desktop: 1.9213rem;
+   --font-size-header-mega-tablet-h: 1.8006rem;
+   --font-size-header-mega-tablet: 1.6875rem;
+   --font-size-header-mega-mobile-h: 1.5819rem;
+   --font-size-header-mega-mobile: 1.4825rem;
+   --font-size-header-mega: 1.3894rem;
+
+   /* // Kilo, ratio 1.0667 */
+   --font-size-header-kilo-desktop-w: 1.875rem;
+   --font-size-header-kilo-desktop-m: 1.7575rem;
+   --font-size-header-kilo-desktop: 1.6469rem;
+   --font-size-header-kilo-tablet-h: 1.5438rem;
+   --font-size-header-kilo-tablet: 1.4469rem;
+   --font-size-header-kilo-mobile-h: 1.3556rem;
+   --font-size-header-kilo-mobile: 1.2706rem;
+   --font-size-header-kilo: 1.1906rem;
+
+}
+
+@media (min-width: 320px) {
+   :root {
+      --font-size-header-peta: var(--font-size-header-peta-mobile);
+      --font-size-header-tera: var(--font-size-header-tera-mobile);
+      --font-size-header-giga: var(--font-size-header-giga-mobile);
+      --font-size-header-mega: var(--font-size-header-mega-mobile);
+      --font-size-header-kilo: var(--font-size-header-kilo-mobile);
+      --font-size-header-pico: var(--font-size-header-pico-mobile);
+      --font-size-header-nano: var(--font-size-header-nano-mobile);
+      --font-size-header-micro: var(--font-size-header-micro-mobile);
+   }
+}
+
+@media (min-width: 480px) {
+   :root {
+      --font-size-header-peta: var(--font-size-header-peta-mobile-h);
+      --font-size-header-tera: var(--font-size-header-tera-mobile-h);
+      --font-size-header-giga: var(--font-size-header-giga-mobile-h);
+      --font-size-header-mega: var(--font-size-header-mega-mobile-h);
+      --font-size-header-kilo: var(--font-size-header-kilo-mobile-h);
+      --font-size-header-pico: var(--font-size-header-pico-mobile-h);
+      --font-size-header-nano: var(--font-size-header-nano-mobile-h);
+      --font-size-header-micro: var(--font-size-header-micro-mobile-h);
+   }
+}
+
+@media (min-width: 768px) {
+   :root {
+      --font-size-header-peta: var(--font-size-header-peta-tablet);
+      --font-size-header-tera: var(--font-size-header-tera-tablet);
+      --font-size-header-giga: var(--font-size-header-giga-tablet);
+      --font-size-header-mega: var(--font-size-header-mega-tablet);
+      --font-size-header-kilo: var(--font-size-header-kilo-tablet);
+      --font-size-header-pico: var(--font-size-header-pico-tablet);
+      --font-size-header-nano: var(--font-size-header-nano-tablet);
+      --font-size-header-micro: var(--font-size-header-micro-tablet);
+   }
+}
+
+@media (min-width: 1024px) {
+   :root {
+      --font-size-header-peta: var(--font-size-header-peta-tablet-h);
+      --font-size-header-tera: var(--font-size-header-tera-tablet-h);
+      --font-size-header-giga: var(--font-size-header-giga-tablet-h);
+      --font-size-header-mega: var(--font-size-header-mega-tablet-h);
+      --font-size-header-kilo: var(--font-size-header-kilo-tablet-h);
+      --font-size-header-pico: var(--font-size-header-pico-tablet-h);
+      --font-size-header-nano: var(--font-size-header-nano-tablet-h);
+      --font-size-header-micro: var(--font-size-header-micro-tablet-h);
+   }
+}
+
+@media (min-width: 1200px) {
+   :root {
+      --font-size-header-peta: var(--font-size-header-peta-desktop);
+      --font-size-header-tera: var(--font-size-header-tera-desktop);
+      --font-size-header-giga: var(--font-size-header-giga-desktop);
+      --font-size-header-mega: var(--font-size-header-mega-desktop);
+      --font-size-header-kilo: var(--font-size-header-kilo-desktop);
+      --font-size-header-pico: var(--font-size-header-pico-desktop);
+      --font-size-header-nano: var(--font-size-header-nano-desktop);
+      --font-size-header-micro: var(--font-size-header-micro-desktop);
+   }
+}
+
+@media (min-width: 1360px) {
+   :root {
+      --font-size-header-peta: var(--font-size-header-peta-desktop-m);
+      --font-size-header-tera: var(--font-size-header-tera-desktop-m);
+      --font-size-header-giga: var(--font-size-header-giga-desktop-m);
+      --font-size-header-mega: var(--font-size-header-mega-desktop-m);
+      --font-size-header-kilo: var(--font-size-header-kilo-desktop-m);
+      --font-size-header-pico: var(--font-size-header-pico-desktop-m);
+      --font-size-header-nano: var(--font-size-header-nano-desktop-m);
+      --font-size-header-micro: var(--font-size-header-micro-desktop-m);
+   }
+}
+
+@media (min-width: 1500px) {
+   :root {
+      --container-padding: var(--site-padding-peta);
+      --site-padding-sticky-right: var(--site-padding-giga);
+      --sticky-links-padding-right: var(--site-padding-pico);
+      --preheader-padding-right: var(--site-padding-giga);
+
+      /* // Headers */
+      --font-size-header-peta: var(--font-size-header-peta-desktop-w);
+      --font-size-header-tera: var(--font-size-header-tera-desktop-w);
+      --font-size-header-giga: var(--font-size-header-giga-desktop-w);
+      --font-size-header-mega: var(--font-size-header-mega-desktop-w);
+      --font-size-header-kilo: var(--font-size-header-kilo-desktop-w);
+      --font-size-header-pico: var(--font-size-header-pico-desktop-w);
+      --font-size-header-nano: var(--font-size-header-nano-desktop-w);
+      --font-size-header-micro: var(--font-size-header-micro-desktop-w);
+   }
+}

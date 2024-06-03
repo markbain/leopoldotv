@@ -1,0 +1,64 @@
+---
+import Search from "astro-pagefind/components/Search";
+---
+
+<Search
+   id="search1"
+   className=""
+   uiOptions={{
+      showImages: true,
+      autofocus: true,
+      translations: {
+         placeholder: "Find Stuff",
+         zero_results: "Couldn't find [SEARCH_TERM]",
+      },
+   }}
+/>
+
+<style is:global>
+   #searchform input {
+      max-width: 100%;
+      padding: 1rem;
+      font-family: var(--font-alt);
+      font-size: var(--font-size-header-mega);
+   }
+   #searchform .pagefind-ui__message {
+      font-family: var(--font-alt);
+   }
+   #searchform .pagefind-ui__results {
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+   }
+   .pagefind-ui__form {
+      position: relative;
+      max-width: 44em;
+   }
+   .pagefind-ui__result {
+      display: flex;
+      gap: 2vw;
+   }
+   .pagefind-ui__result-thumb {
+      flex: 0 1 auto;
+   }
+   .pagefind-ui__result-title {
+      font-size: 1.6rem;
+      margin: 0 !important;
+   }
+   .pagefind-ui__result-excerpt {
+      font-size: 1rem;
+      font-family: var(--font-alt);
+   }
+   .pagefind-ui__search-clear {
+      width: auto;
+      position: absolute;
+      right: 5px;
+      top: 5px;
+      max-width: 100px;
+      font-size: 12px;
+      padding: 10px;
+   }
+   .pagefind-ui__search-input {
+      width: 100%;
+   }
+</style>

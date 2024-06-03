@@ -1,0 +1,9 @@
+{
+   "testimonialName": "Example Name",
+   "testimonialRole": "Example Role",
+   "testimonialURL": "https://www.example.com/",
+   "testimonialImage": "/src/assets/images/testimonials/example.jpg",
+   "testimonialImageTitle": "",
+   "testimonialImageAlt": "",
+   "testimonialText": "This is an example testimonial"
+}

@@ -1,0 +1,12 @@
+---
+import LayoutPage from "../layouts/LayoutPage.astro";
+import SearchForm from "../components/SearchForm.astro";
+const title = "Search";
+const description = "You can find stuff here.";
+---
+
+<LayoutPage title={title} description={description} heroImage="">
+   <!-- This stuff goes in the <slot> -->
+   <p>Type something below. Go on, try it!</p>
+   <SearchForm id="searchform"/>
+</LayoutPage>

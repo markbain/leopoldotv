@@ -1,0 +1,105 @@
+---
+import { SITE_TITLE } from "../consts";
+import Navigation from "./Navigation.astro";
+---
+
+<header class="site-header section">
+   <div class="container">
+      <nav>
+         <div class="logo logo--header" data-message={SITE_TITLE}>
+            <h3><a href="/">{SITE_TITLE}</a></h3>
+         </div>
+         <div class="menu menu--header"><Navigation /></div>
+      </nav>
+   </div>
+</header>
+<style>
+   .toggle--menu {
+      position: fixed;
+      top: var(--layout__padding-block--container);
+      right: var(--layout__padding-inline--container);
+      z-index: 2;
+      margin: var(--layout__nav-link-padding);
+      margin-right: 0;
+   }
+   header {
+      margin: 0;
+      background-color: var(--color__background-header);
+      position: relative;
+      z-index: 1;
+   }
+   nav {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-end;
+      flex-wrap: wrap;
+      gap: 1vw;
+      font-size: 14px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+   }
+   .logo {
+      font-family: var(--font-base);
+      font-size: 25px;
+      font-weight: 700;
+      text-transform: none;
+      letter-spacing: 0.5px;
+      overflow: hidden;
+      text-align: center;
+   }
+   .logo h3 {
+      margin-bottom: 0;
+   }
+   .logo a {
+      padding: 0;
+
+      color: var(--color__accent);
+   }
+   .menu {
+      flex: 1 1 100%;
+   }
+   nav {
+
+   }
+   nav a {
+      padding: 1em;
+      color: var(--color__nav-link);
+      text-decoration: none;
+   }
+   nav a.active {
+      text-decoration: none;
+      color: var(--color__nav-link--active);
+      border-bottom-color: var(--color__nav-link--active);
+   }
+   .toggle {
+      height: 30px;
+   }
+   h2 {
+      margin: 0;
+   }
+
+   h2 a,
+   h2 a.active {
+      text-decoration: none;
+   }
+   @media screen and (min-width: 636px) {
+      header nav .logo {
+      }
+   }
+   @media screen and (min-width: 1024px) {
+      nav {
+         flex-direction: row;
+         gap: 5vw;
+         flex-wrap: nowrap;
+         justify-content: space-between;
+      }
+      .logo {
+         flex: 0 0 auto;
+      }
+      .menu {
+         flex: 0 1 auto;
+      }
+   }
+</style>

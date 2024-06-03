@@ -1,0 +1,57 @@
+/* Theme: Light */
+
+:root {
+   /* Basics */
+   --theme-light__color__white: hsl(0, 0%, 100%);
+   --color-white: hsl(0, 0%, 100%);
+   --theme-light__color__black: rgb(24, 26, 53);
+
+   /* Colors */
+   --theme-light__color__1: hsl(237, 53%, 36%);
+   --theme-light__color__2: #eaf205;
+   --theme-light__color__3: #f21d92;
+
+   --theme-light__color__accent: #f21d92;
+   --theme-light__color__4: #8c1155;
+   --theme-light__color__5: #d9cb04;
+
+   --color__text: var(--theme-light__color__black);
+   --color__accent: var(--theme-light__color__3);
+   --color__background-header: var(--theme-light__color__2);
+   --color__nav-link: var(--theme-light__color__1);
+   --color__nav-link--active: var(--theme-light__color__4);
+   --color__footer: var(--theme-light__color__1);
+   --color__background-site: var(--theme-light__color__white);
+   --color__background-book-carousel: hsl(237, 53%, 97%);
+   --color__background-footer: var(--theme-light__color__2);
+   --color__background-footer--socials: hsl(62 50% 77% / 1);
+   --color__background-overlay: rgba(255, 255, 255, 0.8);
+   --color__background-offcanvas-nav: var(--theme-light__color__2);
+   --color__background-section-testimonials: var(--theme-light__color__5);
+
+   /* Colors - 1 */
+   --theme-light__color__1_36: hsl(237, 53%, 36%);
+   --theme-light__color__1_97: hsl(237, 53%, 97%);
+
+   /* Color - Pink */
+   --color-pink: hsl(327, 89%, 50%);
+   --color-pink-500: hsl(327, 89%, 50%);
+   --color-pink-600: hsl(327, 89%, 40%);
+   --color-pink-700: hsl(327, 89%, 35%);
+
+   /* Links */
+   --color__link: var(--theme-light__color__accent);
+   --color__link--visited: var(--theme-light__color__accent);
+   --color__link--hover: var(--theme-light__color__4);
+   --color__link--active: var(--theme-light__color__4);
+
+   /* Buttons */
+   --color__button: var(--color-white);
+   --color__button--background: var(--color-pink);
+   --color__button--hover: var(--color-white);
+   --color__button--background--hover: var(--color-pink-600);
+   --color__button--active: var(--color-white);
+   --color__button--background--active: var(--color-pink-700);
+
+
+}

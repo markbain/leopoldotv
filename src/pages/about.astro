@@ -1,0 +1,74 @@
+---
+import LayoutPage from "../layouts/LayoutPage.astro";
+import BookImage from "../components/book/BookImage.astro";
+const imageWidth = 640;
+const imageHeight = 416;
+const bookCoverImage = "/src/assets/images/books/author-picture.png";
+---
+
+<LayoutPage
+   title=`About Mhairi`
+   description="Learn more about Mhairi McFarlane.">
+   <div class="content">
+      <div class="hero-image">
+         <BookImage
+            imageWidth={imageWidth}
+            imageHeight={imageHeight}
+            imagePath={bookCoverImage}
+            imageAltText=""
+         />
+      </div>
+      <div class="text text-block">
+         <p>
+            Mhairi McFarlane is an internationally bestselling novelist who was born in
+            Falkirk, Scotland in 1976. She went to school in Nottingham, studied
+            English Language & Literature at Manchester University and then
+            returned to Nottingham to delight its citizens with her journalism.
+         </p>
+
+         <p>
+            After roles as trainee reporter, reporter, feature writer and
+            columnist, she realised she'd climbed to the very top of the
+            mountain at the Nottingham Post, and at age 31, decided to write a
+            novel.
+         </p>
+
+         <p>
+            Some very skint years followed, during which she thought she
+            might've made a huge mistake. Some readers still think that, etc
+            etc.
+         </p>
+
+         <p>
+            Her debut novel, the romantic comedy You Had Me At Hello was an
+            instant hit on being published in 2012.
+         </p>
+
+         <p>
+            She has since written nine more romantic comedy novels for
+            HarperCollins and was fortunate enough to join the writer's room for
+            series five of one of her favourite television shows, Slow Horses.
+         </p>
+      </div>
+   </div>
+</LayoutPage>
+
+<style>
+   .hero-image {
+      width: 100%;
+      max-width: 250px;
+      margin-bottom: 1rem;
+   }
+   .hero-image img {
+      display: block;
+      margin: 0 auto;
+      border-radius: 12px;
+      box-shadow: var(--box-shadow);
+   }
+   @media (min-width: 768px) {
+      .content {
+         display: flex;
+         gap: 2vw;
+      }
+   }
+</style>

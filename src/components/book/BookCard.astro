@@ -1,0 +1,83 @@
+---
+import FormattedDate from "../FormattedDate.astro";
+import BookImage from "../../components/book/BookImage.astro";
+const { post, class: loc, ...rest } = Astro.props;
+const imageWidth = 126;
+const imageHeight = 194;
+const imagePath = post.data.bookThumbImage;
+const imageAltText = post.data.bookTitle;
+// console.log(post);
+---
+
+<div class:list={[loc]} {...rest}>
+   <div class="card__inner">
+      <div class="card__image">
+         <a href={`/books/${post.slug}/`} title={post.data.bookTitle}>
+            <BookImage
+               imageWidth={imageWidth}
+               imageHeight={imageHeight}
+               imagePath={imagePath}
+               imageAltText={imageAltText}
+            />
+         </a>
+      </div>
+      <div class="card__header">
+         <a href={`/books/${post.slug}/`}>
+            <h4 class="title">{post.data.bookTitle}</h4>
+         </a>
+      </div>
+      <div class="date card__date">
+         <span>Published </span><FormattedDate date={post.data.bookPubDate} />
+      </div>
+      <div class="card__excerpt excerpt">{post.data.bookDescription}</div>
+   </div>
+</div>
+<style>
+   .card__inner {
+      padding: 1rem;
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 0 1rem;
+   }
+   .card__inner > * {
+      grid-column: 2/3;
+   }
+   .card__inner .card__image {
+      grid-column: 1/2;
+      grid-row: 1/6;
+   }
+   .card__date {
+      font-family: var(--font-alt);
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      color: #666;
+   }
+   .card__header h4 {
+      line-height: 0.9;
+   }
+   .card__header a {
+      text-decoration: none;
+   }
+   .card a {
+      display: block;
+   }
+   .card__excerpt {
+      margin-block: 1rem;
+      line-height: 1.3;
+      font-size: 1rem;
+   }
+
+   /* Carousel */
+   .card--book-carousel .excerpt {
+      display: none;
+   }
+   .card--book-carousel .date {
+      display: none;
+   }
+   .card--book-carousel .card__header {
+      display: none;
+   }
+   .card--book-carousel .card {
+      display: none;
+   }
+</style>

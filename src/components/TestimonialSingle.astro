@@ -1,0 +1,64 @@
+---
+const { imageUrl, imageTitle, imageAlt, url, urlTitle, name, role, text } =
+   Astro.props;
+// console.log(imageUrl);
+const imageWidth = 66;
+const imageHeight = 66;
+import ImageTestimonial from "../components/images/ImageTestimonial.astro";
+---
+
+<article>
+   <p class="text">{text}</p>
+   <div class="author">
+      {
+         imageUrl && (
+            <div class="author__image">
+               <ImageTestimonial
+                  imageWidth={imageWidth}
+                  imageHeight={imageHeight}
+                  imagePath={imageUrl}
+                  imageAltText=""
+               />
+            </div>
+         )
+      }
+
+      <div class="author__bio">
+         <div class="author__bio__name">
+            <a href={url} title={urlTitle}>
+               {name}
+            </a>
+         </div>
+         <div class="author__bio__role">
+            {role}
+         </div>
+      </div>
+   </div>
+</article>
+<style>
+   article {
+      overflow: hidden;
+      display: flex;
+         flex-direction: column;
+         text-align: left;
+   }
+   .text {
+      font-size: larger;
+   }
+   .author {
+      font-family: var(--font-alt);
+      font-size: 1rem;
+      font-weight: bold;
+      display: flex;
+         gap: 7px;
+         text-align: left;
+   }
+   .author__bio {
+      overflow: hidden;
+   }
+   .author__bio__role {
+      font-size: 0.8rem;
+      font-weight: normal;
+   }
+
+</style>

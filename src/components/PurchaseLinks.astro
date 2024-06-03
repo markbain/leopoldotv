@@ -1,0 +1,41 @@
+---
+import { getCollection } from "astro:content";
+
+const { bookID, bookTitle, bookPubDate } = Astro.props;
+const currentDate = new Date();
+var prefix = 'Preorder';
+if (bookPubDate &&  bookPubDate <= currentDate ){
+   var prefix = 'Buy';
+}
+const relatedPurchaseLinks = await getCollection('links', ({id}) => {
+   return id.startsWith(bookID);
+});
+
+---
+
+<div class="links">
+   <h4>{prefix} <em>{bookTitle}</em></h4>
+   <ul>
+      {
+         relatedPurchaseLinks.map((link) => (
+            <li>
+               <a href={link.data.url} title={link.data.title} target="_blank">
+                  {link.data.label}
+               </a>
+            </li>
+         ))
+      }
+   </ul>
+</div>
+<style>
+   * {
+      font-size: 1rem;
+      font-family: var(--font-alt);
+   }
+   .links {
+      margin-bottom: 2rem;
+   }
+   h4 {
+      font-size: 1.2rem;
+   }
+</style>

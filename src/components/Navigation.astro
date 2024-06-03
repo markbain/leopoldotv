@@ -1,0 +1,98 @@
+---
+import HeaderLink from "./HeaderLink.astro";
+import ToggleMenu from "./toggles/ToggleMenu.astro";
+import ToggleSearch from "./toggles/ToggleSearch.astro";
+import ToggleTheme from "./toggles/ToggleTheme.astro";
+const { location } = Astro.props;
+---
+
+<ul class="internal-links nav-links">
+   <li class="link link--home"><HeaderLink href="/">Home</HeaderLink></li>
+   <li class="link link--about">
+      <HeaderLink href="/about/">About</HeaderLink>
+   </li>
+   <li class="link link--books">
+      <HeaderLink href="/books/">Books</HeaderLink>
+   </li>
+   <li class="link link--contact">
+      <HeaderLink href="/contact/">Contact</HeaderLink>
+   </li>
+   {
+      location !== "offcanvas" ? (
+         <li class="toggle toggle--search">
+            <ToggleSearch />
+         </li>
+      ) : (
+         ""
+      )
+   }
+   {
+      location !== "offcanvas" ? (
+         <li class="toggle toggle--theme">
+            <ToggleTheme />
+         </li>
+      ) : (
+         ""
+      )
+   }
+   <li class="toggle toggle--menu"><ToggleMenu /></li>
+</ul>
+
+<style>
+   .nav-links {
+      display: flex;
+      flex-direction: row;
+      gap: 36px;
+      align-items: center;
+      margin: 0;
+      padding: 0;
+      list-style-type: none;
+      letter-spacing: 1px;
+      font-family: var(--font-alt);
+   }
+
+   .nav-links.expanded {
+      display: unset;
+   }
+
+   .link {
+      display: none;
+   }
+
+   @media screen and (min-width: 768px) {
+      .link {
+         display: block;
+      }
+      .nav-links {
+         position: static;
+         width: auto;
+         background: none;
+      }
+
+      .nav-links a {
+         display: inline-block;
+         color: var(--color__nav-link);
+         text-decoration: none;
+      }
+
+      .nav-links a:hover {
+         color: var(--color__nav-link--active);
+      }
+      .nav-links a:active, .nav-links a.active {
+         color: var(--color__nav-link--hover);
+      }
+   }
+</style>
+<style is:global>
+   /* Off-canvas */
+   .nav--offcanvas .nav-links {
+      align-items: flex-start;
+   }
+   /* Move close icon to top */
+   .nav--offcanvas .nav-links .link {
+      order: 2;
+   }
+   .nav--offcanvas .nav-links .toggle {
+      order: 1;
+   }
+</style>

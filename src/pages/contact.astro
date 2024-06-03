@@ -1,0 +1,40 @@
+---
+import LayoutPage from "../layouts/LayoutPage.astro";
+import CardContact from "../components/CardContact.astro";
+---
+
+<LayoutPage title="Contacts" description="Get in touch">
+   <div class="contact contact--direct">
+      <h2>Direct</h2>
+      <p>
+         If you want to get in touch with me directly, tweet me <a
+            href="https://twitter.com/mhairimcf?lang=en"
+            target="_blank">@MhairiMcF</a
+         >
+      </p>
+   </div>
+
+   <CardContact
+      title="Publicity Inquiries"
+      name="Maud Davies"
+      company="HarperCollins"
+      email="maud.davies@harpercollins.co.uk"
+      tel="02083074347"
+   />
+
+   <CardContact
+      title="Literary agent"
+      name="Douglas Kean"
+      company="Gunn Media"
+      email="douglas@gunnmedia.co.uk"
+      tel="02073515141"
+   />
+
+   <CardContact
+      title="Screen agent"
+      name="Mark Casarotto"
+      company="Casarotto Ramsay & Associates"
+      email="mark@casarotto.co.uk"
+      tel="0207 2874450"
+   />
+</LayoutPage>

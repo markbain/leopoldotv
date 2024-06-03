@@ -1,0 +1,17 @@
+---
+import LayoutHome from "../layouts/LayoutHome.astro";
+import HeroHome from "../components/HeroHome.astro";
+import Testimonials from "../components/Testimonials.astro";
+import { SITE_TITLE, SITE_DESCRIPTION } from "../consts";
+const bookID = "you-belong-with-me";
+const bookTitle = "You Belong With Me";
+---
+
+<LayoutHome title="Homepage" description={SITE_DESCRIPTION} bookID={bookID}>
+   <!-- Hero -->
+   <HeroHome bookID={bookID} bookTitle={bookTitle} />
+   <!--Testimonials -->
+   <div class="testimonials">
+      {bookID && <Testimonials bookId="global" bookTitle="" />}
+   </div>
+</LayoutHome>

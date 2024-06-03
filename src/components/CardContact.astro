@@ -1,0 +1,126 @@
+---
+const { title, name, company, email, tel } = Astro.props;
+const urlMail = "mailto:" + email;
+const urlTel = "tel:" + tel;
+---
+
+<div class="contact card">
+   <div class="contact__header">
+      <h2 class="name">{title}</h2>
+   </div>
+   <div class="contact__details">
+      <ul class="contact__list details">
+         <li class="contact__list-item">
+            <span class="contact__name">{name}</span>
+         </li>
+         <li class="contact__list-item">
+            <span class="contact__role">{company}</span>
+         </li>
+         <li class="contact__list-item">
+            <span class="contact__email"
+               ><span>Email: </span><a href={urlMail} target="_blank">{email}</a
+               ></span
+            >
+         </li>
+         <li class="contact__list-item">
+            <span class="contact__phone"
+               ><span>Tel: </span><a href={urlTel} target="_blank">{tel}</a
+               ></span
+            >
+         </li>
+      </ul>
+   </div>
+</div>
+
+<style>
+   .contact__list {
+      list-style-type: none;
+      padding: 0;
+      margin-bottom: 2rem;
+   }
+   .name {
+      font-family: var(--font-alt);
+      font-size: 1rem;
+      border-bottom: 1px solid #ccc;
+   }
+   .contact__name {
+      font-size: 2rem;
+   }
+   @media screen and (min-width: 636px) {
+      .contact {
+         display: flex;
+         gap: 1rem;
+         max-width: 44em;
+      }
+      .contact > * {
+         flex: 1 0 45%;
+      }
+
+      .contact__header,
+      .contact__details {
+         overflow: hidden;
+      }
+   }
+</style>
+
+<!-- Animate contact cards content -->
+<script is:inline>
+   document.addEventListener("astro:page-load", () => {
+      const cards = gsap.utils.toArray(".card");
+
+      if (cards) {
+         // Register GSAP plugins
+         gsap.registerPlugin(ScrollTrigger);
+
+         // Animations
+         cards.forEach((card) => {
+            const name = document.querySelectorAll(".name");
+            const details = document.querySelectorAll(".details");
+            const items = document.querySelectorAll(".contact__list-item");
+
+            // Timelines
+            let tl = gsap.timeline({
+               scrollTrigger: {
+                  trigger: cards,
+                  start: "top bottom",
+                  once: true,
+               },
+               paused: true,
+               id: "ContactCard",
+            });
+
+            // Add to tl
+            tl.fromTo(
+               name,
+               { autoAlpha: 0 },
+               { autoAlpha: 1, duration: 1 },
+               0.5
+            )
+               .fromTo(
+                  name,
+                  { xPercent: 100 },
+                  { xPercent: 0, duration: 1 },
+                  0.5
+               )
+               .fromTo(
+                  details,
+                  { autoAlpha: 0 },
+                  { autoAlpha: 1, duration: 2.5 },
+                  0
+               )
+               .fromTo(
+                  details,
+                  { xPercent: -100 },
+                  { xPercent: 0, duration: 1 },
+                  0
+               )
+               .fromTo(
+                  items,
+                  { xPercent: -100 },
+                  { xPercent: 0, duration: 1, stagger: 0.2 },
+                  0
+               );
+         });
+      }
+   });
+</script>

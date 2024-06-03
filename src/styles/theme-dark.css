@@ -1,0 +1,52 @@
+/* Theme: Dark */
+
+:root {
+   /* Basics */
+   --theme-dark__color__white: rgb(255, 255, 255);
+   --theme-dark__color__black: rgb(24, 26, 53);
+   --theme-dark__color__very_black: rgb(0, 0, 0);
+
+   /* Colors */
+   --theme-dark__color__1: hsl(237, 53%, 36%);
+   --theme-dark__color__2: hsl(62, 96%, 48%);
+   --theme-dark__color__3: #f21d92;
+   --theme-dark__color__4: #8c1155;
+   --theme-dark__color__5: hsl(56, 96%, 43%);
+
+   --theme-dark__color__1_23_15: hsl(237, 23%, 15%);
+   --theme-dark__color__1_23_7: hsl(237, 23%, 7%);
+
+   --theme-dark__color__237-20-30: hsl(237, 20%, 30%);
+   --theme-dark__color__237-20-20: hsl(237, 20%, 20%);
+   --theme-dark__color__237-20-10: hsl(237, 20%, 10%);
+
+   /* Theme Color 5 - "Yellow" */
+   --theme-dark__color__5_10_05: hsl(56, 20%, 05%);
+   --theme-dark__color__5_10_10: hsl(56, 20%, 10%);
+   --theme-dark__color__5_10_15: hsl(56, 20%, 15%);
+   --theme-dark__color__5_10_23: hsl(56, 20%, 23%);
+}
+
+html.dark {
+
+   /* BACKGROUNDS */
+   --color__background-book-carousel: var(--theme-dark__color__5_10_23);
+   --color__background-book-card: var(--theme-dark__color__5_10_10);
+   --color__background-footer--socials: var(--theme-dark__color__black);
+   --color__background-footer: var(--theme-dark__color__5_10_10);
+   --color__background-header: var(--theme-dark__color__1_23_15);
+   --color__background-testimonials: var(--theme-dark__color__5_10_10);
+   --color__background-offcanvas-nav: var(--theme-dark__color__1_23_15);
+   --color__background-overlay: rgba(24, 26, 53, 0.8);
+   --color__background-site: var(--theme-dark__color__1_23_7);
+
+   /* MISC */
+   --color__accent: var(--theme-light__color__3);
+   --color__footer: var(--theme-light__color__white);
+   --color__nav-link--active: var(--theme-light__color__accent);
+   --color__nav-link: var(--theme-light__color__white);
+   --color__text: var(--theme-dark__color__white);
+
+
+
+}

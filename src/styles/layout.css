@@ -1,0 +1,26 @@
+/* Layout */
+:root {
+   /* Breakpoints */
+   --mobile: 320px;
+   --mobile-h: 480px;
+   --tablet: 768px;
+   --tablet-h: 1024px;
+   --desktop: 1280px;
+   --desktop-m: 1366px;
+   --desktop-w: 1500px;
+   --desktop-very-wide: 1680px;
+   --desktop-very-very-wide: 1800px;
+
+   /* Spacing */
+   --layout__padding-block--container: 2rem;
+   --layout__padding-inline--container: 2rem;
+   --layout__menu-toggle-width: 30px;
+   --layout__nav-link-padding: 15px 20px;
+}
+.container {
+   padding-block: var(--layout__padding-block--container);
+   padding-inline: var(--layout__padding-inline--container);
+}
+.text-block {
+   max-width: 44em;
+}

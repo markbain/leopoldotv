@@ -1,0 +1,76 @@
+---
+import FormattedDate from "../FormattedDate.astro";
+import Testimonials from "../Testimonials.astro";
+import PurchaseLinks from "../PurchaseLinks.astro";
+import BookImage from "../../components/book/BookImage.astro";
+import Playlist from "../Playlist.astro";
+const { book } = Astro.props;
+
+
+const bookCoverImage = book.data.bookCoverImage;
+const bookID = book.data.bookID;
+const bookDescription = book.data.bookDescription;
+const bookPubDate = book.data.bookPubDate;
+const bookTitle = book.data.bookTitle;
+console.log("Book Title: ", bookTitle);
+console.log("Book ID: ", bookID);
+
+const playlistID = book.data.playlistID;
+const imageWidth = 416;
+const imageHeight = 640;
+const imagePath = book.data.bookThumbImage;
+const imageAltText = book.data.bookTitle;
+---
+
+<article class="content--book">
+   <!-- Cover -->
+   <div class="cover">
+      {
+         bookCoverImage && (
+            <div class="hero-image">
+               <BookImage
+                  imageWidth={imageWidth}
+                  imageHeight={imageHeight}
+                  imagePath={imagePath}
+                  imageAltText={imageAltText}
+               />
+            </div>
+         )
+      }
+   </div>
+
+   <!-- Title -->
+   <div class="title">
+      <h1>{bookTitle}</h1>
+   </div>
+
+   <!-- Date -->
+   {
+      bookPubDate && (
+         <div class="pub-date">
+            Published <FormattedDate date={bookPubDate} />
+         </div>
+      )
+   }
+   <!-- Description or content -->
+   <slot>
+      {bookDescription && <div class="book__excerpt">{bookDescription}</div>}
+   </slot>
+
+   <!-- Purchase Links -->
+   <PurchaseLinks bookID={bookID} bookTitle={bookTitle} bookPubDate={bookPubDate}/>
+
+   <!--Testimonials -->
+   <Testimonials id={bookID} title={bookTitle} />
+
+   {
+      playlistID && (
+         <!-- Playlist -->
+         <Playlist playlistID={playlistID} id={bookID} title={bookTitle} />
+      )
+   }
+</article>
+<style>
+   .cover {
+   }
+</style>

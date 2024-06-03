@@ -1,0 +1,709 @@
+---
+---
+
+<div id="menuToggle" class="menuToggle hamburger" data-trigger-id="main">
+   <svg
+      width="30"
+      class="burger openmenu"
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 30 30">
+      <path class="top" d="M0 9h30v2H0z"></path>
+      <line
+         class="mid"
+         x1="0"
+         y1="15"
+         x2="30"
+         y2="15"
+         stroke="black"
+         stroke-width="2"
+         vector-effect="non-scaling-stroke"></line>
+      <path class="bot" d="M0 19h30v2H0z"></path>
+   </svg>
+</div>
+
+<style>
+   .hamburger {
+      cursor: pointer;
+      width: 30px;
+      height: 30px;
+   }
+   line.mid {
+      opacity: 0.6;
+   }
+   path.bot {
+      opacity: 0.4;
+   }
+   :global(.dark) line {
+      stroke: white;
+   }
+   :global(.dark) path {
+      fill: white;
+   }
+   @media screen and (min-width: 636px) {
+      .hamburger {
+         /* display: none;*/
+      }
+   }
+</style>
+
+<!-- Animate Off-canvas Menu -->
+
+<script is:inline>
+   document.addEventListener("astro:page-load", () => {
+
+      /**
+       * GSAP Offcanvas slide-in
+       */
+
+      // Register plugins
+      gsap.registerPlugin(ScrollSmoother, GSDevTools);
+
+      // Assign Timelines to Vars
+      let tlWrapper = gsap.timeline({
+         paused: true,
+         id: "Slide-in Wrapper",
+         // onReverseComplete: tlCompleteReverse,
+      });
+
+      let tlSetup = gsap.timeline({
+         paused: true,
+         id: "Slide-in Set Up",
+         // onReverseComplete: tlCompleteReverse,
+      });
+
+      let tlOverlay = gsap.timeline({
+         paused: true,
+         id: "Slide-in Overlay",
+         // onReverseComplete: tlCompleteReverse,
+      });
+
+      let tlButton = gsap.timeline({
+         paused: true,
+         id: "Slide-in Close Button",
+         // onReverseComplete: tlCompleteReverse,
+      });
+
+      let tlContent = gsap.timeline({
+         paused: true,
+         id: "Slide-in Content",
+         // onReverseComplete: tlCompleteReverse,
+      });
+
+      let tlMenu = gsap.timeline({
+         paused: true,
+         id: "Slide-in Menu",
+         // onReverseComplete: tlCompleteReverse,
+      });
+
+      let tlBurger = gsap.timeline({
+         paused: true,
+         id: "Hamburger",
+         reversed: true,
+      });
+
+      // Reset the timeline to allow multiple target wrappers
+      function tlCompleteReverse() {
+         this.clear();
+      }
+
+      /**
+       * Slider Setup
+       * @param {string} slideInWrapperID             ID/Class of wrapper
+       * @param {string} slideInOverlayClass          ID/Class of overlay
+       * @param {string} slideInTrigger               ID/Class of opener
+       * @param {string} slideInCloseID               ID/Class of closer
+       * @param {string} slideInContentID             ID/Class of content (optional)
+       */
+      function sliderSetUp(
+         slideInWrapperID,
+         slideInOverlayClass,
+         slideInTrigger,
+         slideInCloseID,
+         slideInContentID = NULL
+      ) {
+         if (!slideInWrapperID) {
+            return;
+         }
+
+         // Vars
+         const slideInContent = "";
+         const slideInWrapper = document.querySelector(slideInWrapperID);
+         const slideInOverlay = document.querySelector(slideInOverlayClass);
+         const slideInBurger = ".burger";
+
+         if (slideInContentID) {
+            const slideInContent = document.querySelector(slideInContentID);
+
+            // Load Timeline
+            slideInAnimationTlContent(slideInContent);
+            slideInAnimationTlMenu(slideInContent);
+         }
+
+         // Load Timelines
+         slideInAnimationTlWrapper(slideInWrapper);
+         slideInAnimationTlOverlay(slideInOverlay);
+         slideInAnimationTlBurger(slideInBurger);
+
+         // Run Setup TL
+         sliderSetUpAnimations(
+            slideInWrapperID,
+            slideInOverlay,
+            slideInContent
+         );
+
+      }
+
+      /**
+       * Open Slider
+       *
+       * @param {string} slideInWrapperID
+       * @param {string} slideInOverlay
+       * @param {string} slideInContent
+       * @param {string} slideInClose
+       */
+      function sliderOpen(
+         slideInWrapperID,
+         slideInOverlay,
+         slideInContent,
+         slideInClose,
+         triggerID
+      ) {
+         // Prevent content under overlay
+         // from scrolling
+         const html = document.documentElement;
+         html.style.overflow = "hidden";
+         // console.log("Hidden added");
+
+         // Run TL Control functions for Opening Animation
+         sliderOpenTlControls(
+            slideInWrapperID,
+            slideInOverlay,
+            slideInContent,
+            slideInClose
+         );
+      }
+
+      // Close the slideIn
+      function slideInClose(
+         slideInWrapperID,
+         slideInOverlay,
+         slideInContent,
+         slideInClose
+      ) {
+         // sliderOpen
+
+         const html = document.documentElement;
+         html.style.removeProperty("overflow");
+         // console.log("Hidden removed");
+
+         // slideInWrapper.classList.toggle("is-open");
+         // if (slideInOverlay) {
+         //    slideInOverlay.classList.toggle("is-open");
+         // }
+
+         // Animate the "out" transition
+         slideInAnimateOut(
+            slideInWrapperID,
+            slideInOverlay,
+            slideInContent,
+            slideInClose
+         );
+      }
+
+      /**
+       * Toggle the slideIn (Open/Close)
+       *
+       * @param {string} slideInWrapperID             ID/Class of wrapper
+       * @param {string} triggerID                    ID/Class of opener
+       * @param {string} slideInCloseButton           Closer element
+       * @param {string} slideInOverlay               Overlay element
+       * @param {string} slideInContent               Content element (optional)
+       */
+      function slideInToggle(
+         slideInWrapperID,
+         triggerID,
+         slideInCloseButton,
+         slideInOverlay,
+         slideInContent
+      ) {
+         if (!slideInWrapperID || !triggerID) {
+            return;
+         }
+
+         // Get Wrapper element
+         const slideInWrapper = document.querySelector(slideInWrapperID);
+
+         if (slideInWrapper !== null) {
+            // Open the Slide-in
+            sliderOpen(
+               slideInWrapperID,
+               slideInOverlay,
+               slideInContent,
+               slideInCloseButton,
+               triggerID
+            );
+
+            /**
+             * If there's a dedicated closer button, close
+             * the slider by clicking the button. Otherwise,
+             * the opener button will toggle the slider.
+             */
+
+            // Close the slideIn by clicking "close"
+            if (slideInCloseButton !== "") {
+               slideInCloseButton.onclick = function (event) {
+                  slideInClose(
+                     slideInWrapperID,
+                     slideInOverlay,
+                     slideInContent,
+                     slideInCloseButton
+                  );
+                  event.preventDefault();
+               };
+            }
+
+            // Close the slideIn clicking on the overlay
+            if (slideInOverlay !== null) {
+               slideInOverlay.onclick = function (event) {
+                  slideInClose(
+                     slideInWrapperID,
+                     slideInOverlay,
+                     slideInContent,
+                     slideInCloseButton
+                  );
+                  event.preventDefault();
+               };
+            }
+         }
+      }
+
+      /**
+       * T I M E L I N E S
+       * =================
+       *
+       * These functions describe timelines for each animated element.
+       */
+
+      /**
+       * Wrapper TL
+       * @param {string} slideInWrapperID
+       */
+      function slideInAnimationTlWrapper(slideInWrapperID) {
+         if (!slideInWrapperID) {
+            return;
+         }
+         // console.log("Setting up TlWrapper...");
+         let tl = tlWrapper;
+         tl.set(slideInWrapperID, {
+            autoAlpha: 1,
+            opacity: 1,
+         })
+            .to(
+               slideInWrapperID,
+               {
+                  xPercent: 0,
+                  duration: 0.4,
+                  ease: "Circ.easeOut",
+               },
+               0
+            )
+            .reverse();
+
+         return tl;
+      }
+
+      /**
+       * Close Button TL
+       * @param {string} slideInCloseButton
+       */
+      function slideInAnimationTlClose(slideInCloseButton) {
+         if (!slideInCloseButton) {
+            return;
+         }
+         // console.log("Setting up TlClose...");
+         let tl = tlButton;
+         tl.from(
+            slideInCloseButton,
+            {
+               // y: 550,
+               // duration: 2,
+               // immediateRender: false,
+               // ease: Circ.easeOut,
+            },
+            0
+         );
+         return tl;
+      }
+
+      /**
+       * Overlay TL
+       * @param {string} slideInOverlay
+       */
+      function slideInAnimationTlOverlay(slideInOverlay) {
+         if (!slideInOverlay) {
+            return;
+         }
+         // console.log("Setting up TlOverlay...");
+         // console.log(slideInOverlay);
+         let tl = tlOverlay;
+         tl.to(slideInOverlay, {
+            autoAlpha: 1,
+            duration: 0.2,
+         }).reverse();
+
+         return tl;
+      }
+
+      /**
+       * Menu Items TL
+       * @param {string} slideInContent
+       */
+      function slideInAnimationTlMenu(slideInContent) {
+         if (!slideInContent) {
+            return;
+         }
+         let tl = tlMenu;
+
+         const items = slideInContent.querySelectorAll('li');
+
+         const itemsArray = gsap.utils.toArray(items);
+
+         tl.fromTo(
+            itemsArray,
+            { xPercent: 30, autoAlpha: 0 },
+            { xPercent: 0, autoAlpha: 1, duration: 0.2, stagger: 0.2 },
+            0.2
+         ).reverse();
+         return tl;
+      }
+
+      /**
+       * Content TL
+       * @param {string} slideInContent
+       */
+      function slideInAnimationTlContent(slideInContent) {
+         if (!slideInContent) {
+            return;
+         }
+         // console.log("Setting up TlContent...");
+         let tl = tlContent;
+         tl.to(
+            slideInContent,
+            {
+               autoAlpha: 1,
+               duration: 0.5,
+               ease: "Circ.easeOut",
+            },
+            0.5
+         );
+         return tl;
+      }
+
+      function slideInAnimationTlBurger(burger) {
+
+         if (!burger) {
+            return;
+         }
+
+         let burgerTop = `${burger} .top`;
+         let burgerBottom = `${burger} .bot`;
+         let burgerMiddle = `${burger} .mid`;
+
+         tlBurger
+            //.set("#burger", { className: "-=closemenu" })
+            //.set("#burger", { className: "+=openmenu" })
+            .to(burgerTop, { y: "-9px", transformOrigin: "50% 50%" })
+            .to(burgerBottom, { y: "9px", transformOrigin: "50% 50%" })
+            .to(burgerMiddle, { scale: 0.1, transformOrigin: "50% 50%" })
+            .add("rotate")
+            .to(burgerTop, { y: "5" }, "rotate")
+            .to(burgerBottom, { y: "-5" }, "rotate")
+            .to(
+               burgerTop,
+               { rotationZ: 45, transformOrigin: "50% 50%" },
+               "rotate"
+            )
+            .to(
+               " .bot",
+               { rotationZ: -45, transformOrigin: "50% 50%" },
+               "rotate"
+            );
+      }
+
+      /**
+       * Set initial state of animations
+       * @param {string} slideInWrapperID
+       * @param {string} slideInOverlay
+       * @param {string} slideInContent
+       */
+      function sliderSetUpAnimations(
+         slideInWrapperID,
+         slideInOverlay,
+         slideInContent
+      ) {
+         if (!slideInWrapperID || !slideInOverlay) {
+            return;
+         }
+
+         // console.log("Setting up Animations...");
+         // console.log("Overlay: %s", slideInOverlay);
+
+         tlSetup
+            .set(slideInWrapperID, {
+               // className: "animatedWrapper",
+               autoAlpha: 0,
+               xPercent: -100,
+               ease: "Circ.easeOut",
+            })
+            // .set(slideInContent, {
+            //    y: 0,
+            // })
+            .set(slideInOverlay, {
+               // className: "animatedOverlay",
+               autoAlpha: 0,
+            });
+
+         // console.log(tlSetup);
+
+         tlSetup.play();
+      }
+
+      /**
+       * Animate Out Slider
+       * @param {string} slideInOverlay
+       * @param {string} slideInWrapper
+       * @param {string} slideInContent
+       * @param {string} slideInCloseButton
+       */
+      function slideInAnimateOut(
+         slideInWrapperID,
+         slideInOverlay,
+         slideInContent,
+         slideInCloseButton
+      ) {
+         sliderWrapperTLController(slideInWrapperID, "slideOut");
+         sliderOverlayTLController(slideInOverlay, "slideOut");
+         slideInContentAnimateOut(slideInContent, slideInCloseButton);
+      }
+
+      /**
+       * Run TL Control functions for Opening Animation
+       *
+       * @param {string} slideInOverlay
+       * @param {string} slideInWrapper
+       * @param {string} slideInContent
+       * @param {string} slideInCloseButton
+       */
+      function sliderOpenTlControls(
+         slideInWrapperID,
+         slideInOverlay,
+         slideInContent,
+         slideInCloseButton
+      ) {
+         if (slideInWrapperID) {
+            // console.log("Wrapper ID: %s", slideInWrapperID);
+            sliderWrapperTLController(slideInWrapperID);
+         }
+         if (slideInOverlay) {
+            // console.log("Overlay: %s", slideInOverlay);
+            sliderOverlayTLController(slideInOverlay);
+         }
+         if (slideInContent) {
+            slideInContentAnimateIn(slideInContent, slideInCloseButton);
+            // console.log("Content: %s", slideInContent);
+            // console.log("Closer: %s", slideInCloseButton);
+         }
+      }
+
+      /**
+       * Animate In Slider Content
+       * @param {string} slideInContent
+       */
+      function slideInContentAnimateIn(slideInContent, slideInCloseButton) {
+         if (!slideInContent) {
+            return;
+         }
+         // console.log("Content: %s", slideInContent);
+         // console.log("Closer: %s", slideInCloseButton);
+         let tlSliderContent = slideInAnimationTlContent(slideInContent);
+         // console.log(tlSliderContent);
+         let tlSliderCloseButton = slideInAnimationTlClose(slideInCloseButton);
+
+         tlSliderContent.play();
+         tlSliderCloseButton.play();
+      }
+
+      /**
+       * Animate Out Slide-in Content
+       * @param {string} slideInContent
+       * @param {string} slideInCloseButton
+       */
+      function slideInContentAnimateOut(slideInContent, slideInCloseButton) {
+         if (!slideInContent) {
+            return;
+         }
+         // Get TL
+         let tlSliderContent = slideInAnimationTlContent(slideInContent);
+
+         let tlSliderCloseButton = slideInAnimationTlClose(slideInCloseButton);
+
+         if (tlSliderContent) {
+            tlSliderContent.reverse();
+            tlSliderContent.kill();
+         }
+         tlSliderCloseButton.reverse();
+      }
+
+      /**
+       * Timeline Controller Functions
+       * =============================
+       *
+       * This group of functions when called plays the timeline.
+       */
+
+      /**
+       * Wrapper Timeline Controller
+       * ===========================
+       *
+       * This function controls the external wrapper containing
+       * the off-canvas menu. Usually this means sliding the
+       * element on and off screen.
+       *
+       * @param {string} slideInWrapperID // Element containing the menu
+       * @param {string} sliderDirection  // on/off screen
+       */
+      function sliderWrapperTLController(
+         slideInWrapperID,
+         sliderDirection = "slideIn" // Default is slide element on-screen
+      ) {
+         if (!slideInWrapperID) {
+            return;
+         }
+         // console.log("Controlling Wrapper TL");
+         // console.log("   > Direction: %s", sliderDirection);
+
+         // Get the timeline for the wrapper element
+         let tl = slideInAnimationTlWrapper(slideInWrapperID);
+
+         // Control TL based on sliderDirection
+         if (sliderDirection === "slideOut") {
+            tl.reverse();
+         } else {
+            tl.play();
+         }
+      }
+
+      /**
+       * Overlay TL Controller
+       * @param {string} slideInOverlay
+       * @param {string} sliderDirection
+       */
+      function sliderOverlayTLController(
+         slideInOverlay,
+         sliderDirection = "slideIn"
+      ) {
+         if (!slideInOverlay) {
+            return;
+         }
+         // console.log("Controlling Overlay TL");
+         // console.log("   > Direction: %s", sliderDirection);
+         // Get TL
+         let tl = slideInAnimationTlOverlay(slideInOverlay);
+         // Control TL based on sliderDirection
+         if (sliderDirection === "slideOut") {
+            tl.reverse();
+         } else {
+            // console.log("Playing TL");
+            tl.play();
+         }
+      }
+
+      // Remove "overflow:hidden" on HTML
+      function removeOverflowHidden() {
+         const html = document.documentElement;
+         if (html !== null) {
+            html.style.overflow = "";
+         }
+      }
+
+      // Add "overflow:hidden" on HTML
+      function addOverflowHidden() {
+         const html = document.documentElement;
+         if (html !== null) {
+            html.style.overflow = "hidden";
+         }
+      }
+
+      function tlCompleteReverseSlider(slideInWrapper) {
+         // scrollOnSliderClose(slideInWrapper);
+         removeOverflowHidden();
+      }
+
+      /**
+       * Init Slider
+       * ===========
+       *
+       * This function initiates the slider.
+       *
+       * @param {string} slideInWrapperID
+       * @param {string} slideInOverlayClass
+       * @param {string} slideInTrigger // Opener/toggle
+       * @param {string} slideInCloseID
+       * @param {string} slideInContentID
+       */
+      sliderSetUp(
+         ".section.nav--offcanvas", // Wrapper ID     slideInWrapperID
+         ".section--overlay--nav", // Overlay Class   slideInOverlayClass
+         ".hamburger", // Trigger                     slideInTrigger
+         ".hamburger", // Closer                      slideInCloseID
+         ".nav--offcanvas .nav-links" // slideInContentID
+      );
+
+      /**
+       * Click Handler Callback Function
+       * ===============================
+       *
+       * This is the function called by the click handler attached
+       * to the open/close toggles.
+       *
+       */
+      function sliderToggleOnClick() {
+         // console.log("Toggle clicked");
+
+         // Add class to HTML
+         const element = document.documentElement;
+         element.classList.toggle("menuIsOpen");
+
+         /**
+          * ANIMATIONS
+          * ==========
+          * Run animations based on the current state of each timeline.
+          *
+          */
+
+         // Animate burger
+         tlBurger.reversed() ? tlBurger.restart() : tlBurger.reverse();
+
+         // Animate Wrapper
+         tlWrapper.reversed(!tlWrapper.reversed());
+
+         // Animate Overlay
+         tlOverlay.reversed(!tlOverlay.reversed());
+
+         // Animate Menu Items
+         tlMenu.reversed(!tlMenu.reversed());
+      }
+
+      // Add click handler to each toggle
+      const toggle = ".menuToggle";
+      const toggles = document.querySelectorAll(toggle);
+      if (toggles) {
+         // console.log("Toggles found");
+         let menuToggles = gsap.utils.toArray(toggle);
+         // console.log(menuToggles);
+         menuToggles.forEach(function (menuToggle) {
+            menuToggle.addEventListener("click", sliderToggleOnClick);
+         });
+      }
+   });
+</script>

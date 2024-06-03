@@ -1,0 +1,109 @@
+---
+const today = new Date();
+import SocialLinks from "./SocialLinks.astro";
+import DesignCredit from "./DesignCredit.astro";
+import FooterScripts from "../components/FooterScripts.astro";
+import NavOffCanvas from "../components/NavOffCanvas.astro";
+import CookieConsent from "../components/CookieConsent.astro";
+import BookCarousel from "../components/book/BookCarousel.astro";
+import HeaderLink from "./HeaderLink.astro";
+const { bookID, location, class: classes } = Astro.props;
+---
+
+<div class:list={[classes, "site-footer"]}>
+   <BookCarousel
+      currentBook={bookID}
+      location={location}
+      class="card--book-carousel"
+   />
+
+   <!-- Site Footer -->
+   <footer class="section colophon">
+      <div class="container">
+         <div class="copyright">
+            &copy; {today.getFullYear()} Mark Bain & Aida Guillén.
+         </div>
+         <div class="rights">All rights reserved.</div>
+         <div class="smartarse">Yes, even those ones!</div>
+         <div class="design-credit"><DesignCredit /></div>
+
+      </div>
+   </footer>
+   <footer class="section socials">
+      <div class="container">
+         <SocialLinks />
+         <div class="privacy"><HeaderLink href="/privacy-policy/">Privacy Policy</HeaderLink></div>
+         <a href="#" data-cc="show-preferencesModal">Manage Cookie Preferences</a>
+      </div>
+   </footer>
+</div>
+
+<NavOffCanvas />
+<CookieConsent />
+<FooterScripts />
+
+<style>
+   .section > .container {
+      display: flex;
+      flex-direction: column;
+      gap: 0.7rem;
+      align-items: center;
+   }
+   .colophon {
+      font-family: var(--font-alt);
+      font-size: 0.8rem;
+      padding: 2em 1em;
+      text-align: center;
+      background: var(--color__background-footer);
+      color: var(--color__footer);
+      font-size: 1rem;
+   }
+   .social-links {
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-start;
+      gap: 1em;
+      margin-top: 1em;
+   }
+   .social-links a {
+      text-decoration: none;
+   }
+   .social-links a:hover {
+      color: rgb(var(--gray-dark));
+   }
+   /* Socials */
+   .section.socials {
+      background: var(--color__background-footer--socials);
+      font-family: var(--font-alt);
+      font-size: 0.85rem;
+   }
+   .section.socials a:link,
+   .section.socials a:visited {
+      color: hsla(0, 0%, 0%, 0.5);
+      text-decoration: none;
+   }
+   .section.socials a:hover,
+   .section.socials a:active {
+      color: hsla(0, 0%, 0%, 0.75);
+      text-decoration: underline;
+   }
+
+   /* Book Carousel */
+   .section.book-carousel {
+      background-color: var(--color__background--book-carousel);
+   }
+
+   @media screen and (min-width: 768px) {
+      .section > .container {
+
+         flex-direction: row;
+         flex-wrap: wrap;
+         gap: 1rem;
+      }
+   }
+   @media screen and (min-width: 1280px) {
+      .design-credit {
+         margin-left: auto;
+      }
+   }
+</style>

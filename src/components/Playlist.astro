@@ -1,0 +1,12 @@
+---
+const { playlistID, title } = Astro.props;
+const theme = 1;
+const url = "https://open.spotify.com/embed/playlist/";
+const query = "?utm_source=generator&theme=" + theme;
+const playlistURL = url + playlistID + query;
+---
+<div class="playlist">
+   <h4><em>{title}</em> Mixtape 🖭</h4>
+   <p>If they ever make a movie of the book, here's the soundtrack! Done!</p>
+   <iframe style="border-radius:12px" src={playlistURL} width="100%" height="152" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+</div>

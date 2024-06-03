@@ -1,0 +1,13 @@
+---
+const { bookID } = Astro.props;
+import { getCollection } from "astro:content";
+import BookExcerptSingle from "../book/BookExcerptSingle.astro";
+
+const excerpts = await getCollection("excerpts", ({ id }) => {
+   return bookID ? id.startsWith(bookID) : false;
+});
+console.log(excerpts);
+
+---
+
+{excerpts.map((entry) => <BookExcerptSingle data={entry} />)}

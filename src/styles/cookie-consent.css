@@ -1,0 +1,5 @@
+#cc-main {
+   --cc-font-family: var(--font-alt);
+   --cc-modal-border-radius: 0;
+   --cc-btn-border-radius: 0;
+}

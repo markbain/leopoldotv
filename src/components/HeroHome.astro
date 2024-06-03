@@ -1,0 +1,90 @@
+---
+import { getEntry } from "astro:content";
+import BookContent from "./book/BookContent.astro";
+
+const { bookID, bookTitle } = Astro.props;
+console.log("Hero Home / Book ID: ", bookID);
+
+const entry = await getEntry("book", bookID); // Latest
+console.log(entry);
+
+import PurchaseLinks from "./PurchaseLinks.astro";
+---
+
+<div class="section hero">
+   <div class="container">
+      <!-- Preheader -->
+      <div class="preheader">Coming June 20<sup>th</sup>!</div>
+
+      <!-- Hero Book -->
+      <div class="hero-book latest">
+         <div class="card-wrapper">
+            <BookContent book={entry}>
+               <h2 class="text-block">
+                  She found The One. But when everyone wants him, can she keep
+                  him?
+               </h2>
+
+               <p class="text-block">
+                  When there's a ring on her doorbell on Christmas Day, there's
+                  only one person Edie Thompson wants it to be. The person who's
+                  still in her heart. The person who just might be The One.
+               </p>
+
+               <p class="text-block">
+                  She and Elliot Owen called it quits once before – but aren't
+                  they too good together not to try? And here he is – offering
+                  her everything she dreamed of.
+               </p>
+
+               <p class="text-block">
+                  But dating Elliot, an actor, is anything but plain sailing.
+                  Being an ocean apart and followed by the press is one thing,
+                  but when Edie's friends and Elliot's family are drawn in,
+                  things get messy.
+               </p>
+
+               <p class="text-block">
+                  Then her boss hires a friendly face in the form of Declan
+                  Dunne, who's there for her when times are tough, and Edie
+                  starts to wonder... are she and Elliot a fairytale come true –
+                  or a cautionary fable about getting what you wish for?
+               </p>
+            </BookContent>
+         </div>
+      </div>
+   </div>
+</div>
+<style>
+   .preheader {
+      font-family: var(--font-alt);
+      margin-bottom: 10px;
+      padding: 1rem;
+      border: 1px solid;
+      display: inline-block;
+   }
+</style>
+<style is:global>
+   .section.hero .card-wrapper .content--book .testimonials {
+      display: none;
+   }
+
+   .section.hero .card-wrapper article .title {
+      font-size: 0.65rem;
+   }
+   @media (min-width: 768px) {
+      .section.hero .card-wrapper article {
+         display: grid;
+         grid-template-columns: auto 1fr;
+         grid-template-rows: repeat(4, auto);
+         gap: 0 5vw;
+      }
+      .section.hero .card-wrapper article > * {
+         grid-column: 2/3;
+      }
+      .section.hero .card-wrapper article .cover {
+         grid-column: 1/2;
+         grid-row: 1/6;
+      }
+   }
+</style>
